@@ -1,7 +1,15 @@
+*{
+    box-sizing: border-box;
+}
 
+body{
+    position: absolute;
+
+}
 .modal{
+    position: relative;
     text-align: center;
-    display: none;
+    /* display: none; */
     border: solid ;
 
 }
@@ -12,4 +20,14 @@ button.btn-rate{
 .txt-rate{
     display:inline-block;
     width:50px
+}
+
+.close-modal{
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    /* padding: 5px; */
+    border-radius: 30%;
+    border-width: 1px;
+
 }

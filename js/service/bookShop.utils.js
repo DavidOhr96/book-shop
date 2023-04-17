@@ -13,7 +13,3 @@ function changeDirrection(){
     else document.querySelector('body').style.direction='ltr'
 }
 
-function start(){
-    renderTable()
-    doTrans()
-}

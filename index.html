@@ -10,7 +10,11 @@
 </head>
 
 
-<body onload="start()">
+<body onload="onInit()">
+    <select onchange="onSetLang(value)">
+        <option value="en">en</option>
+        <option value="he">עב</option>
+    </select>
     <h1 data-trans="head-title">
         Bookshop managment
     </h1>
@@ -38,6 +42,15 @@
 
     <button onclick="onAddBook()" data-trans="add-book"> Add new book</button>
     <div class="modal">
+        <button class="close-modal" onclick="onCloseModal()">x</button>
+        <h3></h3>
+        <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem magni, repudiandae blanditiis adipisci
+            nihil
+            ex!
+        </p>
+        </br>
+        <label data-trans="modal-rate"> Rate</label></br>
         <button class="btn-rate" onclick="onRateDecrease()">
             -
         </button>
@@ -72,11 +85,11 @@
 
 
     </table>
+    <script src="lib/hammer.js"></script>
     <script src="js/service/storage.service.js"></script>
     <script src="js/service/bookShop.service.js"></script>
     <script src="js/service/bookShop.utils.js"></script>
     <script src="js/bookShop.controller.js"></script>
-    
     <script src="js/service/bookShop.i18nservice.js"></script>
 </body>
 

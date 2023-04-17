@@ -52,14 +52,17 @@ const gTrans={
         en:'Delete',
         he:'מחק'
     },
+    'modal-rate':{
+        en:'Rate',
+        he:'דירוג'
+    }
 }
-var gCurrLang='he'
+var gCurrLang='en'
 
 function doTrans(){
     const els=document.querySelectorAll('[data-trans]')
     changeDirrection()
     els.forEach(element => {
-        console.log(element)
         const transKey=element.dataset.trans
         const trans=getTrans(transKey)
         element.innerText=trans

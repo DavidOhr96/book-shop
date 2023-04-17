@@ -29,7 +29,10 @@ function renderTable() {
     doTrans()
 
 }
-
+function onSetLang(lang){
+    chageCurrLang(lang)
+    doTrans()
+}
 function onRemoveBook(bookId) {
     removeBook(bookId)
     renderTable()
@@ -48,7 +51,6 @@ function onUpdateBook(bookId) {
 }
 
 function onReadBook(bookId) {
-    console.log(bookId)
     openModal(bookId)
 
 }
@@ -68,7 +70,7 @@ function onSetFilterBy(filterBy) {
     filterBy = setBookFilter(filterBy)
     renderTable()
     
-    const queryStringParams = `?maxPrice=${filterBy.maxPrice}&minRate=${filterBy.minRate}&searchBar=${filterBy.searchBar}`
+    const queryStringParams = `?maxPrice=${filterBy.maxPrice}&minRate=${filterBy.minRate}&searchBar=${filterBy.searchBar}&lang=${gCurrLang}`
     const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + queryStringParams
     window.history.pushState({ path: newUrl }, '', newUrl)
 
@@ -80,3 +82,40 @@ function renderModal(rate){
 document.querySelector('.txt-rate').innerText=rate
 
 }
+function onCloseModal(){
+    document.querySelector('.modal').style.display='none'
+}
+function onSwipe(){
+    gHammerContainer.on('swipeleft swiperight',(ev)=>{
+        if(ev.type==='swiperight') prevBook()
+        else nextBook()
+    })
+}
+
+function prevBook(){
+ var   queryStringParams=new URLSearchParams(window.location.search)
+const bookId=queryStringParams.get('bookID')
+const idx=getBookIdx(bookId)
+const pBook=gBooks[idx].prevId
+const pBookIdx=getBookIdx(pBook)
+document.querySelector('.txt-rate').innerText = gBooks[pBookIdx].rate
+    document.querySelector('.modal h3').innerText=gBooks[pBookIdx].title
+    queryStringParams = `?maxPrice=${gFilterBy.maxPrice}&minRate=${gFilterBy.minRate}&searchBar=${gFilterBy.searchBar}&lang=${gCurrLang}&bookID=${pBook}`
+    const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + queryStringParams
+    window.history.pushState({ path: newUrl }, '', newUrl)
+}
+function nextBook(){
+    var   queryStringParams=new URLSearchParams(window.location.search)
+   const bookId=queryStringParams.get('bookID')
+   const idx=getBookIdx(bookId)
+   console.log(gBooks[idx])
+   const nBook=gBooks[idx].nextId
+   console.log(nBook)
+   const nBookIdx=getBookIdx(nBook)
+   console.log(gBooks[nBookIdx])
+   document.querySelector('.txt-rate').innerText = gBooks[nBookIdx].rate
+       document.querySelector('.modal h3').innerText=gBooks[nBookIdx].title
+       queryStringParams = `?maxPrice=${gFilterBy.maxPrice}&minRate=${gFilterBy.minRate}&searchBar=${gFilterBy.searchBar}&lang=${gCurrLang}&bookID=${nBook}`
+    const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + queryStringParams
+    window.history.pushState({ path: newUrl }, '', newUrl)
+   }
