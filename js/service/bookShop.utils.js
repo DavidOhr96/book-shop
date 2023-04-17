@@ -7,11 +7,13 @@ function makeId(length = 6) {
     }
     return txt
 }
-function saveToStorage(key, val) {
-    localStorage.setItem(key, JSON.stringify(val))
+
+function changeDirrection(){
+    if(gCurrLang==='he')document.querySelector('body').style.direction='rtl'
+    else document.querySelector('body').style.direction='ltr'
 }
 
-function loadFromStorage(key) {
-    var val = localStorage.getItem(key)
-    return JSON.parse(val)
+function start(){
+    renderTable()
+    doTrans()
 }

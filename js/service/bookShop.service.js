@@ -1,5 +1,5 @@
 const STORAGE_KEY = 'booksDB'
-var gBooks = [{
+var gBooks = loadFromStorage(STORAGE_KEY) || [{
     id: 'ZZZZZ',
     title: 'tanach',
     price: 10,
@@ -10,6 +10,8 @@ var gBooks = [{
     price: 10,
     rate: 0
 }]
+
+
 var gIdxBookInModal = ''
 var gFilterBy = {
     maxPrice: Infinity,
@@ -19,6 +21,7 @@ var gFilterBy = {
 
 
 function getBooks() {
+    console.log(gBooks)
     var books = gBooks.filter(book =>
         book.price >= gFilterBy.maxPrice &&
             book.rate >= gFilterBy.minRate &&
@@ -31,7 +34,7 @@ function removeBook(bookId) {
     var idx = getBookIdx(bookId)
     if (idx < 0) return
     else gBooks.splice(idx, 1)
-    saveToStorage(STORAGE_KEY, gBooks)
+    _saveBooks() 
 
 }
 function addBook(title, price) {
@@ -42,12 +45,12 @@ function addBook(title, price) {
         rate: 0
     }
     gBooks.push(newBook)
-    saveToStorage(STORAGE_KEY, gBooks)
+    _saveBooks() 
 }
 function updateBook(bookId, bookPrice) {
     var idx = getBookIdx(bookId)
     gBooks[idx].price = bookPrice
-    saveToStorage(STORAGE_KEY, gBooks)
+    _saveBooks() 
 
 }
 function openModal(bookId) {
@@ -62,13 +65,13 @@ function openModal(bookId) {
 function rateDecrease() {
     if (gBooks[gIdxBookInModal].rate === 0) return
     gBooks[gIdxBookInModal].rate--
-    saveToStorage(STORAGE_KEY, gBooks)
+    _saveBooks() 
     return gBooks[gIdxBookInModal].rate
 }
 function rateIncrease() {
     if (gBooks[gIdxBookInModal].rate === 10) return
     gBooks[gIdxBookInModal].rate++
-    saveToStorage(STORAGE_KEY, gBooks)
+    _saveBooks() 
     return gBooks[gIdxBookInModal].rate
 }
 function getBookIdx(bookId) {
@@ -82,3 +85,6 @@ function setBookFilter(filterBy) {
     if(filterBy.searchBar !== undefined)gFilterBy.searchBar = filterBy.searchBar
     return gFilterBy
 }
+function _saveBooks() {
+    saveToStorage(STORAGE_KEY,gBooks) 
+  }

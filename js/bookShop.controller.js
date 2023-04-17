@@ -16,16 +16,17 @@ function renderTable() {
         ${book.price}
         </td>
         <td>
-        <button onclick="onReadBook('${book.id}')">Read</button>
+        <button data-trans="read" onclick="onReadBook('${book.id}')">Read</button>
         </td>
         <td>
-        <button onclick="onUpdateBook('${book.id}')">Update</button>
+        <button data-trans="update" onclick="onUpdateBook('${book.id}')">Update</button>
         </td>
         <td>
-        <button onclick="onRemoveBook('${book.id}')">Delete</button>
+        <button data-trans="delete" onclick="onRemoveBook('${book.id}')">Delete</button>
         </td>
         </tr>`
     }).join('')
+    doTrans()
 
 }
 
